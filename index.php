@@ -9,7 +9,7 @@
 	//--------------------------------------------------------------------------
 	require_once('Rcon.class.php'); 
 	
-	$r = new rcon("91.121.80.219",23375,"lotuxlove2016"); // Remplacer l'ip, le port et le mot de passe par les votres
+	$r = new rcon("91.121.80.219",23375,"(Ne revez pas, je l'ai retiré)"); // Remplacer l'ip, le port et le mot de passe par les votres
 
 	if(isset($_POST['submit']))
 	{
