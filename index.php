@@ -28,15 +28,16 @@
 			}
 			//$sql = 'SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" LIMIT 0,1';
 			//$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
-			$req = $bdd->query('SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" LIMIT 0,1');
+			$req = $bdd->query('SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" ORDER BY id DESC LIMIT 0,1'); //ORDER BY ID DESC
 			$data = $req->fetch();
-			echo "<script type='text/javascript'>alert('le dernier vote de ".$data['pseudo']." à été fait le ".$data['date']."');</script>";
+			$diff = time() - $data["date"];
+			echo "<script type='text/javascript'>alert('le dernier vote de ".$data['pseudo']." à été fait le ".$data['date']." et ".$diff."');</script>";
 			if((time() - $data["date"]) > 86400) {
 				$command = 'give '. $pseudo .' minecraft:diamond';
 				$message = 'say '.$pseudo.' viens de voter pour ImperAttack ! Merci !';
 				$date = time();
 				if($r->Auth()){
-					//$r->rconCommand($command);
+					$r->rconCommand($command);
 					$r->rconCommand($message);
 				}
 				try{
