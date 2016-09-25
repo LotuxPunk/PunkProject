@@ -173,6 +173,10 @@
 	</div>
 	</div>
 	<div id="global">
+		<p>Envie de contribuer au PunkVote ?<p>
+		<a href="https://github.com/LotuxPunk/PunkVote" target="_blank">Github</a>
+	</div>
+	<div id="global">
 		<p>Cette application est toujours en développement, soyez patient ! :)</p>
 		<img src="img/tardis.jpg" width="300px"/>
 	</div>
