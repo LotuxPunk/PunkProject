@@ -31,10 +31,10 @@
 			$req = $bdd->query('SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" ORDER BY id DESC LIMIT 0,1'); //ORDER BY ID DESC
 			$data = $req->fetch();
 			$diff = time() - $data["date"];
-			echo "<script type='text/javascript'>alert('le dernier vote de ".$data['pseudo']." à été fait le ".$data['date']." et ".$diff."');</script>";
+			//echo "<script type='text/javascript'>alert('le dernier vote de ".$data['pseudo']." à été fait le ".$data['date']." et ".$diff."');</script>";
 			if((time() - $data["date"]) > 86400) {
 				$command = 'give '. $pseudo .' minecraft:diamond';
-				$message = 'say '.$pseudo.' viens de voter pour ImperAttack ! Merci !';
+				$message = 'say '.$pseudo.' viens de voter pour ImperReborn et gagne 1 diamant ! Merci !';
 				$date = time();
 				if($r->Auth()){
 					$r->rconCommand($command);
