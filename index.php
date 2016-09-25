@@ -20,25 +20,25 @@
 		if ($pseudo <> "") 
 		{
 			try{
-			$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
-		}
-		catch (Exception $e)
-		{
-			die('Erreur : ' . $e->getMessage());
-		}
-		/* $reponse = $bdd->query('SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" LIMIT 0,1');
-		echo $reponse['date'];
-		if(($reponse['date'] - time()) > 86400)
-		{ */
-			$command = 'give '. $pseudo .' minecraft:diamond';
-			$message = 'say '.$pseudo.' viens de voter pour ImperAttack ! Merci !';
-			$date = time();
-
-			if($r->Auth())
-			{
-				// $r->rconCommand($command);
-				$r->rconCommand($message);
+				$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
 			}
+			catch (Exception $e)
+			{
+				die('Erreur : ' . $e->getMessage());
+			}
+			//$sql = 'SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" LIMIT 0,1';
+			//$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
+			$req = $bdd->query('SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" LIMIT 0,1');
+			$data = $req->fetch();
+			echo "<script type='text/javascript'>alert('le dernier vote de ".$data['pseudo']." à été fait le ".$data['date']."');</script>";
+			if((time() - $data["date"]) > 86400) {
+				$command = 'give '. $pseudo .' minecraft:diamond';
+				$message = 'say '.$pseudo.' viens de voter pour ImperAttack ! Merci !';
+				$date = time();
+				if($r->Auth()){
+					//$r->rconCommand($command);
+					$r->rconCommand($message);
+				}
 				try{
 
 					$connexion = new PDO("mysql:host=$serveur;dbname=imperacu_vote",$login,$pass);
@@ -47,23 +47,18 @@
 					$connexion->exec($insertion);
 					echo "<script type='text/javascript'>document.location.replace('http://www.serveurs-minecraft.org/vote.php?id=48119');</script>";
 				}
-			catch(PDOException $e){
-			echo 'Echec : '.$e->getMessage();
+				catch(PDOException $e){
+					echo 'Echec : '.$e->getMessage();
+				}
 			}
-		/* }
-		else{
-			echo "<h1>Désolé, vous avez dejà voté il y a moins de 24h</h1>";
-			} */
+			else{
+				echo "<script type='text/javascript'>alert('Désolé, vous avez dejà voté il y a moins de 24h');</script>";
+			}
 		}
 		else{
 			echo "<script type='text/javascript'>alert('Veuillez entrer un pseudo');</script>";
-
 		}
-		
-		
 	}
-		
-		
 ?>
 <!DOCTYPE html>
 <html lang="fr">
