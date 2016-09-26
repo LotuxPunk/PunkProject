@@ -82,7 +82,7 @@
 			margin:auto;
 			text-align:center;
 			padding:20px;
-			background-color:rgba(255,255,255,0.7);
+			background-color:rgba(255,255,255,0.9);
 			margin-top:10px;
 			border-radius:25px;
 		}
@@ -113,66 +113,56 @@
 <body>
 <div id="global">
 	<center><img src="img/logo.png" width="200px"/></center>
-	<h1>PunkVote - L'application de vote d'ImperAttack !</h1>
-    <div class="container">
-		<!-- Envoie de commande -->
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Pour voter, entrez votre pseudo et cliquez sur "Envoyer"</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<form method="post" role="form">
-							<div class="input-group">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-chevron-right">
-								</span>
-								</span>
-								<input type="text" name="pseudo" class="form-control" placeholder="Entrez votre pseudo">
-								<span class="input-group-btn">
-									<input type="submit" name="submit" class="btn btn-default" value="Envoyer" />
-								</span>
-							</div>
-						</form>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="container" id="listing">
-		<h2>Les 10 dernières personnes ayant votées ...</h2>
-		<table class="table" class="table table-striped">
-			<?php
-					try{
-						$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
-					}
-					catch (Exception $e){
-						die('Erreur : ' . $e->getMessage());
-					}
-					$reponse = $bdd->query("SELECT * FROM votage ORDER BY date DESC LIMIT 10");
-					
-					while ($data = $reponse->fetch()){
-				?>
-				<tr>
+	<div class="page-header">
+		<h1>PunkVote <small>L'application de vote d'ImperaCube !</small></h1>
+	</div>
+	<div class="container">
+		<form method="post" role="form">
+			<div class="col">
+				<div class="input-group">
+					<input name="pseudo" type="text" class="form-control" placeholder="Entrez votre pseudo">
+					<span class="input-group-btn">
+						<button type="submit" name="submit" class="btn btn-default">Voter !</button>
+					</span>
+				</div><!-- /input-group -->
+			</div>
+		</form>
+	</div>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Les 10 dernières personnes ayant votées ...</div>
+			<div class="container" id="listing">
+				<table class="table" class="table table-striped">
+					<?php
+						try{
+							$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
+						}
+						catch (Exception $e){
+							die('Erreur : ' . $e->getMessage());
+						}
+						$reponse = $bdd->query("SELECT * FROM votage ORDER BY date DESC LIMIT 10");
+						while ($data = $reponse->fetch()){
+					?>
+					<tr>
 					<td>
 					<?php
 						$img = '<img src="https://minotar.net/avatar/'.$data['pseudo'].'/25">';
 						echo $img;
 					?>
-					</td><td>
+					</td>
+					<td>
 					<p><?php echo $data['pseudo']; ?> a voté le <?php echo date("d-m-Y h:i:sa",$data['date']);?></p>
 					</td>
-				</tr>
-				<?php
-					}
+					</tr>
+					<?php
+						}
 					?>
-		</table>
+				</table>
+			</div>
 		</div>
 	</div>
-	</div>
-	<div id="global">
+</div>
+<div id="global">
 		<p>Envie de contribuer au PunkVote ?<p>
 		<a href="https://github.com/LotuxPunk/PunkVote" target="_blank">Github</a>
 	</div>
