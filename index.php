@@ -10,7 +10,7 @@
 	require_once('Rcon.class.php'); 
 	
 	$r = new rcon("91.121.80.219",23375,"(Ne revez pas, je l'ai retiré)"); // ("IP",port,"mdp")
-
+	
 	if(isset($_GET['pseudo']))
 	{
 		
@@ -131,7 +131,7 @@
 		<h1>PunkVote <small>L'application de vote d'ImperaCube !</small></h1>
 	</div>
 	<div class="container">
-			<p class="text-info">Si vous êtes connecté sur le serveur, cliquez sur le bouton avec votre avatar, sinon cliquez sur Roger ! (Roger le poulet)</p>
+		<p class="text-info">Si vous êtes connecté sur le serveur, cliquez sur le bouton avec votre avatar, sinon cliquez sur Roger ! (Roger le poulet)</p>
 		<?php
 			$json = file_get_contents('https://mcapi.ca/query/play.imperacube.fr:23365/list');
 			$obj = json_decode($json,true);
@@ -139,11 +139,12 @@
 			/* print_r($obj['Players']['list']); */
 			foreach ($liste as $joueur){
 				?>
-				<a class="btn btn-default" href="http://www.imperacube.fr/vote/index.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
+				<a class="btn btn-default" onClick="vote()" href="http://www.imperacube.fr/vote/index.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
 				<?php
 			}
 		?>
-		<p style="margin-top:10px;"><a type="button" href="http://www.imperacube.fr/vote/index.php?pseudo=Roger" class="btn btn-primary btn-lg"><img width="25px" src="img/poulet.jpg"> Vous n'êtes pas connecté sur le serveur ?</a></p>
+		<p style="margin-top:10px;"><a type="button" onClick="vote()" href="http://www.imperacube.fr/vote/index.php?pseudo=Roger" class="btn btn-primary btn-lg"><img width="25px" src="img/poulet.jpg"> Vous n'êtes pas connecté sur le serveur ?</a></p>
+		<p class="text-warning">Des failles existent, si nous constatons des abus, il y aura des sanctions.</p>
 	</div>
 	<div class="container">
 		<div class="panel panel-default">
@@ -188,4 +189,14 @@
 		<img src="img/tardis.jpg" class="img-thumbnail" width="300px"/>
 	</div>
 </body>
+<script>
+	var clic = 0;
+	
+	function vote() {
+		clic = clic + 1
+		if (clic > 1){
+			alert('Trop de clic, tu le clic');
+		}
+	}
+</script>
 </html>
