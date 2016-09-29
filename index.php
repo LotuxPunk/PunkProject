@@ -11,13 +11,12 @@
 	
 	$r = new rcon("91.121.80.219",23375,"(Ne revez pas, je l'ai retiré)"); // ("IP",port,"mdp")
 
-	if(isset($_POST['submit']))
+	if(isset($_GET['pseudo']))
 	{
 		
 		/* On récupère le pseudo */
-		$pseudo = $_POST['pseudo'];
-		
-		if ($pseudo <> "") 
+		$pseudo = htmlspecialchars($_GET["pseudo"]);
+		if ($pseudo <> "" and $pseudo <> "Roger") 
 		{
 			try{
 				$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
@@ -32,7 +31,8 @@
 			$data = $req->fetch();
 			$diff = time() - $data["date"];
 			//echo "<script type='text/javascript'>alert('le dernier vote de ".$data['pseudo']." à été fait le ".$data['date']." et ".$diff."');</script>";
-			if((time() - $data["date"]) > 86400) {
+			if((time() - $data["date"]) > 86400)
+			{
 				$command = 'give '. $pseudo .' minecraft:diamond';
 				$message = 'say '.$pseudo.' viens de voter pour ImperReborn et gagne 1 diamant ! Merci !';
 				$date = time();
@@ -52,12 +52,26 @@
 					echo 'Echec : '.$e->getMessage();
 				}
 			}
-			else{
+			else
+			{
 				echo "<script type='text/javascript'>alert('Désolé, vous avez dejà voté il y a moins de 24h');</script>";
 			}
 		}
-		else{
-			echo "<script type='text/javascript'>alert('Veuillez entrer un pseudo');</script>";
+		else
+		{
+			if ($pseudo = "Roger")
+			{
+				$message = 'say '.$pseudo.' viens de voter pour ImperReborn et pond 1 diamant ! Merci Roger !';
+				if($r->Auth())
+				{
+					$r->rconCommand($message);
+				}
+				echo "<script type='text/javascript'>document.location.replace('http://www.serveurs-minecraft.org/vote.php?id=48119');</script>";
+			}
+			else
+			{
+				echo "<script type='text/javascript'>alert('Veuillez entrer un pseudo');</script>";
+			}
 		}
 	}
 ?>
@@ -117,18 +131,6 @@
 		<h1>PunkVote <small>L'application de vote d'ImperaCube !</small></h1>
 	</div>
 	<div class="container">
-		<form method="post" role="form">
-			<div class="col">
-				<div class="input-group">
-					<input name="pseudo" type="text" class="form-control" placeholder="Entrez votre pseudo">
-					<span class="input-group-btn">
-						<button type="submit" name="submit" class="btn btn-default">Voter !</button>
-					</span>
-				</div><!-- /input-group -->
-			</div>
-		</form>
-	</div>
-	<div class="container">
 		<?php
 			$json = file_get_contents('https://mcapi.ca/query/play.imperacube.fr:23365/list');
 			$obj = json_decode($json,true);
@@ -136,12 +138,11 @@
 			/* print_r($obj['Players']['list']); */
 			foreach ($liste as $joueur){
 				?>
-				<button class="btn btn-default" value="<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></button>
+				<a class="btn btn-default" href="http://www.imperacube.fr/vote/index.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
 				<?php
 			}
-
 		?>
-		<p style="margin-top:10px;"><button type="button" class="btn btn-primary btn-lg"><img width="25px" src="img/poulet.jpg"> Vous n'êtes pas connecté sur le serveur ?</button></p>
+		<p style="margin-top:10px;"><a type="button" href="http://www.imperacube.fr/vote/index.php?pseudo=Roger" class="btn btn-primary btn-lg"><img width="25px" src="img/poulet.jpg"> Vous n'êtes pas connecté sur le serveur ?</a></p>
 	</div>
 	<div class="container">
 		<div class="panel panel-default">
