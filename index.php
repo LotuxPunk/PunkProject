@@ -131,6 +131,7 @@
 		<h1>PunkVote <small>L'application de vote d'ImperaCube !</small></h1>
 	</div>
 	<div class="container">
+			<p class="text-info">Si vous êtes connecté sur le serveur, cliquez sur le bouton avec votre avatar, sinon cliquez sur Roger ! (Roger le poulet)</p>
 		<?php
 			$json = file_get_contents('https://mcapi.ca/query/play.imperacube.fr:23365/list');
 			$obj = json_decode($json,true);
@@ -184,7 +185,7 @@
 	</div>
 	<div id="global">
 		<p>Cette application est toujours en développement, soyez patient ! :)</p>
-		<img src="img/tardis.jpg" width="300px"/>
+		<img src="img/tardis.jpg" class="img-thumbnail" width="300px"/>
 	</div>
 </body>
 </html>
