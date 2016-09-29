@@ -129,6 +129,21 @@
 		</form>
 	</div>
 	<div class="container">
+		<?php
+			$json = file_get_contents('https://mcapi.ca/query/play.imperacube.fr:23365/list');
+			$obj = json_decode($json,true);
+			$liste = $obj['Players']['list'];
+			/* print_r($obj['Players']['list']); */
+			foreach ($liste as $joueur){
+				?>
+				<button class="btn btn-default" value="<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></button>
+				<?php
+			}
+
+		?>
+		<p style="margin-top:10px;"><button type="button" class="btn btn-primary btn-lg"><img width="25px" src="img/poulet.jpg"> Vous n'êtes pas connecté sur le serveur ?</button></p>
+	</div>
+	<div class="container">
 		<div class="panel panel-default">
 			<div class="panel-heading">Les 10 dernières personnes ayant votées ...</div>
 			<div class="container" id="listing">
