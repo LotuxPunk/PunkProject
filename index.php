@@ -195,7 +195,7 @@
 	function vote() {
 		clic = clic + 1
 		if (clic > 1){
-			alert('Trop de clic, tu le clic');
+			alert('Trop de clic, tue le clic');
 		}
 	}
 </script>
