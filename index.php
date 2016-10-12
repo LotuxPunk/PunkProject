@@ -80,8 +80,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>PunkVote - Votez pour ImperAttack</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 	<!-- UN PEU DE CSS POUR ADAPTER BOOTSTRAP A NOS BESOINS -->
@@ -89,14 +88,15 @@
 		body{
 			background-image: url("img/use_your_illusion.png");
 			padding:10px;
+			
 		}
 		
 		#global {
+			background-color:#F4FAFC;
 			max-width:900px;
 			margin:auto;
 			text-align:center;
 			padding:20px;
-			background-color:rgba(255,255,255,0.9);
 			margin-top:10px;
 			border-radius:25px;
 		}
@@ -125,32 +125,51 @@
 </head>
 
 <body>
-<div id="global">
-	<center><img src="img/logo.png" width="200px"/></center>
-	<div class="page-header">
-		<h1>PunkVote <small>L'application de vote d'ImperaCube !</small></h1>
-	</div>
-	<div class="container">
-		<p class="text-info">Si vous êtes connecté sur le serveur, cliquez sur le bouton avec votre avatar, sinon cliquez sur Roger ! (Roger le poulet)</p>
-		<?php
-			$json = file_get_contents('https://mcapi.ca/query/play.imperacube.fr:23365/list');
-			$obj = json_decode($json,true);
-			$liste = $obj['Players']['list'];
-			/* print_r($obj['Players']['list']); */
-			foreach ($liste as $joueur){
+	<div id="global">
+		<div class="container-fluid">
+			<center><img src="img/logo.png" width="200px"/></center>
+			<h3>PunkVote <small class="text-muted">L'application de vote d'ImperaCube !</small></h3>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="http://www.imperacube.fr/">Site</a></li>
+				<li class="breadcrumb-item"><a href="http://www.imperacube.fr//forum">Forum</a></li>
+				<li class="breadcrumb-item active">PunkVote</li>
+			</ol>
+		</div>
+		<div class="container-fluid">
+			<p class="lead" id="listing">Si vous êtes connecté sur le serveur, cliquez sur le bouton avec votre avatar, sinon cliquez sur Roger ! (Roger le poulet)</p>
+			<?php
+				$json = file_get_contents('https://mcapi.ca/query/play.imperacube.fr:23365/list');
+				$obj = json_decode($json,true);
+				$liste = $obj['Players']['list'];
+				$nbj = count($liste);
+				//echo "<script type='text/javascript'>alert('".$nbj."');</script>";
+				if ($nbj > 0)
+				{
+					foreach ($liste as $joueur){
+					?>
+					<a class="btn btn-secondary" onClick="vote()" href="http://www.imperacube.fr/vote/index.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
+					<?php
+					}
+				}
+				else
+				{
+					echo '<div class="bg-info">Aucun joueur n\'est connecté.</div>';
+				}
 				?>
-				<a class="btn btn-default" onClick="vote()" href="http://www.imperacube.fr/vote/index.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
-				<?php
-			}
-		?>
-		<p style="margin-top:10px;"><a type="button" onClick="vote()" href="http://www.imperacube.fr/vote/index.php?pseudo=Roger" class="btn btn-primary btn-lg"><img width="25px" src="img/poulet.jpg"> Vous n'êtes pas connecté sur le serveur ?</a></p>
-		<p class="text-warning">Des failles existent, si nous constatons des abus, il y aura des sanctions.</p>
-	</div>
-	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">Les 10 dernières personnes ayant votées ...</div>
-			<div class="container" id="listing">
-				<table class="table" class="table table-striped">
+				
+			<p style="margin-top:10px;"><a type="button" onClick="vote()" href="http://www.imperacube.fr/vote/index.php?pseudo=Roger" class="btn btn-primary btn-lg" ><img width="25px" src="img/poulet.jpg"> Roger, va voter !</a></p>
+			<p class="text-warning">Des failles existent, si nous constatons des abus, il y aura des sanctions.</p>
+		</div>
+		<div class="container-fluid">
+			<h2>Les 10 dernières personnes ayant votées ...</h2>
+				<table class="table table-bordered table-hover" id="listing" >
+					<thead class="thead-inverse">
+						<tr>
+							<th>Avatar</th>
+							<th>Pseudo</th>
+							<th>Date</th>
+						</tr>
+					</thead>
 					<?php
 						try{
 							$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
@@ -161,42 +180,32 @@
 						$reponse = $bdd->query("SELECT * FROM votage ORDER BY date DESC LIMIT 10");
 						while ($data = $reponse->fetch()){
 					?>
+					<tbody>
 					<tr>
-					<td>
-					<?php
-						$img = '<img src="https://minotar.net/avatar/'.$data['pseudo'].'/25">';
-						echo $img;
-					?>
-					</td>
-					<td>
-					<p><?php echo $data['pseudo']; ?> a voté le <?php echo date("d-m-Y h:i:sa",$data['date']);?></p>
-					</td>
+						<th><?php $img = '<center><img src="https://minotar.net/avatar/'.$data['pseudo'].'/25"></center>'; echo $img; ?></th>
+						<td><?php echo $data['pseudo']; ?></td>
+						<td><?php echo date("d-m-Y h:i:sa",$data['date']+7200);?></td>
 					</tr>
 					<?php
-						}
+					}
 					?>
+					</tbody>
 				</table>
 			</div>
-		</div>
-	</div>
-</div>
-<div id="global">
-		<p>Envie de contribuer au PunkVote ?<p>
-		<a href="https://github.com/LotuxPunk/PunkVote" target="_blank">Github</a>
 	</div>
 	<div id="global">
-		<p>Cette application est toujours en développement, soyez patient ! :)</p>
-		<img src="img/tardis.jpg" class="img-thumbnail" width="300px"/>
+		<a href="https://github.com/LotuxPunk/PunkVote" class="btn btn-info" target="_blank">Envie de contribuer au PunkVote ?</a><br/><br/>
+		<img src="img/tardis.jpg" class="img-thumbnail" style="width:300px;" />
 	</div>
-</body>
-<script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+	<script>
 	var clic = 0;
 	
 	function vote() {
-		clic = clic + 1
-		if (clic > 1){
-			alert('Trop de clic, tue le clic');
-		}
+		
 	}
-</script>
+	</script>
+</body>
 </html>
