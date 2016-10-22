@@ -37,7 +37,7 @@
 				$message = 'say '.$pseudo.' viens de voter pour ImperReborn et gagne 1 diamant ! Merci !';
 				$date = time();
 				if($r->Auth()){
-					$r->rconCommand($command);
+					//$r->rconCommand($command);
 					$r->rconCommand($message);
 				}
 				try{
@@ -81,6 +81,7 @@
 	<meta charset="utf-8">
 	<title>PunkVote - Votez pour ImperAttack</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+	
 	<!-- UN PEU DE CSS POUR ADAPTER BOOTSTRAP A NOS BESOINS -->
 	<style type="text/css">
 		body{
@@ -126,7 +127,7 @@
 	<div id="global">
 		<div class="container-fluid">
 			<center><img src="img/logo.png" width="200px"/></center>
-			<h3>PunkVote <small class="text-muted">L'application de vote d'ImperaCube !</small></h3>
+			<h1>PunkVote <small class="text-muted">L'application de vote d'ImperaCube !</small></h1>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="http://www.imperacube.fr/">Site</a></li>
 				<li class="breadcrumb-item"><a href="http://www.imperacube.fr//forum">Forum</a></li>
