@@ -1,81 +1,4 @@
-﻿<?php
-
-	$serveur="localhost";
-	$login = "imperacu_vote";
-	$pass = "ilfautvoter15";
-	
-	//--------------------------------------------------------------------------
-	//			CONNEXION AU RCON POUR ENVOYER DES COMMANDES AU SERVEUR
-	//--------------------------------------------------------------------------
-	require_once('Rcon.class.php'); 
-	
-	$r = new rcon("91.121.80.219",23375,"(Ne revez pas, je l'ai retiré)"); // ("IP",port,"mdp")
-	
-	if(isset($_GET['pseudo']))
-	{
-		
-		/* On récupère le pseudo */
-		$pseudo = htmlspecialchars($_GET["pseudo"]);
-		if ($pseudo <> "" and $pseudo <> "Roger") 
-		{
-			try{
-				$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
-			}
-			catch (Exception $e)
-			{
-				die('Erreur : ' . $e->getMessage());
-			}
-			//$sql = 'SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" LIMIT 0,1';
-			//$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
-			$req = $bdd->query('SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" ORDER BY id DESC LIMIT 0,1'); //ORDER BY ID DESC
-			$data = $req->fetch();
-			$diff = time() - $data["date"];
-			//echo "<script type='text/javascript'>alert('le dernier vote de ".$data['pseudo']." à été fait le ".$data['date']." et ".$diff."');</script>";
-			if((time() - $data["date"]) > 86400)
-			{
-				$command = 'give '. $pseudo .' minecraft:diamond';
-				$message = 'say '.$pseudo.' viens de voter pour ImperReborn et gagne 1 diamant ! Merci !';
-				$date = time();
-				if($r->Auth()){
-					//$r->rconCommand($command);
-					$r->rconCommand($message);
-				}
-				try{
-
-					$connexion = new PDO("mysql:host=$serveur;dbname=imperacu_vote",$login,$pass);
-					$connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-					$insertion = "INSERT INTO votage(`pseudo`, `date`) VALUES ('".$pseudo."', '".$date."')";
-					$connexion->exec($insertion);
-					echo "<script type='text/javascript'>document.location.replace('http://www.serveurs-minecraft.org/vote.php?id=48119');</script>";
-				}
-				catch(PDOException $e){
-					echo 'Echec : '.$e->getMessage();
-				}
-			}
-			else
-			{
-				echo "<script type='text/javascript'>alert('Désolé, vous avez dejà voté il y a moins de 24h');</script>";
-			}
-		}
-		else
-		{
-			if ($pseudo = "Roger")
-			{
-				$message = 'say '.$pseudo.' viens de voter pour ImperReborn et pond 1 diamant ! Merci Roger !';
-				if($r->Auth())
-				{
-					$r->rconCommand($message);
-				}
-				echo "<script type='text/javascript'>document.location.replace('http://www.serveurs-minecraft.org/vote.php?id=48119');</script>";
-			}
-			else
-			{
-				echo "<script type='text/javascript'>alert('Veuillez entrer un pseudo');</script>";
-			}
-		}
-	}
-?>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
@@ -146,7 +69,7 @@
 				{
 					foreach ($liste as $joueur){
 					?>
-					<a class="btn btn-secondary" onClick="vote()" href="http://www.imperacube.fr/vote/index.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
+					<a class="btn btn-secondary" onClick="vote()" href="http://www.imperacube.fr/vote/vote.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
 					<?php
 					}
 				}
@@ -199,12 +122,5 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-	<script>
-	var clic = 0;
-	
-	function vote() {
-		
-	}
-	</script>
 </body>
 </html>
