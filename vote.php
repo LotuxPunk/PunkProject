@@ -11,6 +11,14 @@
 	
 	$r = new rcon("91.121.80.219",23375,"(Ne revez pas, je l'ai retiré)"); // ("IP",port,"mdp")
 	
+	try{
+		$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
+	}
+	catch (Exception $e)
+	{
+		die('Erreur : ' . $e->getMessage());
+	}
+		
 	if(isset($_GET['pseudo']))
 	{
 		
@@ -18,13 +26,6 @@
 		$pseudo = htmlspecialchars($_GET["pseudo"]);
 		if ($pseudo <> "" and $pseudo <> "Roger") 
 		{
-			try{
-				$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
-			}
-			catch (Exception $e)
-			{
-				die('Erreur : ' . $e->getMessage());
-			}
 			//$sql = 'SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" LIMIT 0,1';
 			//$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 			$req = $bdd->query('SELECT * FROM `votage` WHERE `pseudo` = "'.$pseudo.'" ORDER BY id DESC LIMIT 0,1'); //ORDER BY ID DESC
@@ -42,11 +43,11 @@
 					$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$insertion = "INSERT INTO votage(`pseudo`, `date`) VALUES ('".$pseudo."', '".$date."')";
 					$connexion->exec($insertion);
-					echo "<script type='text/javascript'>document.location.replace('http://www.serveurs-minecraft.org/vote.php?id=48119');</script>";
 					if($r->Auth()){
 						//$r->rconCommand($command);
 						$r->rconCommand($message);
-					}	
+					}
+					echo "<script type='text/javascript'>document.location.replace('http://www.serveurs-minecraft.org/vote.php?id=48119');</script>";
 				}
 				catch(PDOException $e){
 					echo 'Echec : '.$e->getMessage();
@@ -135,7 +136,7 @@
 			</ol>
 		</div>
 		<div class="container-fluid">
-			<iframe src="//giphy.com/embed/xJCaPc70BUMgg" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+			<h2>Vote en cours</h2>
 		</div>
 		<div id="global">
 			<a href="https://github.com/LotuxPunk/PunkVote" class="btn btn-info" target="_blank">Envie de contribuer au PunkVote ?</a><br/><br/>

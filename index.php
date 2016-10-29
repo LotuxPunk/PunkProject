@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿<?php
+	$serveur="localhost";
+	$login = "imperacu_vote";
+	$pass = "ilfautvoter15";
+	
+	try{
+		$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
+	}
+	catch (Exception $e)
+	{
+		die('Erreur : ' . $e->getMessage());
+	}
+?>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
@@ -79,7 +92,7 @@
 				}
 				?>
 				
-			<p style="margin-top:10px;"><a type="button" onClick="vote()" href="http://www.imperacube.fr/vote/index.php?pseudo=Roger" class="btn btn-primary btn-lg" ><img width="25px" src="img/poulet.jpg"> Roger, va voter !</a></p>
+			<p style="margin-top:10px;"><a type="button" onClick="vote()" href="http://www.imperacube.fr/vote/vote.php?pseudo=Roger" class="btn btn-primary btn-lg" ><img width="25px" src="img/poulet.jpg"> Roger, va voter !</a></p>
 			<p class="text-warning">Des failles existent, si nous constatons des abus, il y aura des sanctions.</p>
 		</div>
 		<div class="container-fluid">
