@@ -106,12 +106,6 @@
 						</tr>
 					</thead>
 					<?php
-						try{
-							$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
-						}
-						catch (Exception $e){
-							die('Erreur : ' . $e->getMessage());
-						}
 						$reponse = $bdd->query("SELECT * FROM votage ORDER BY date DESC LIMIT 10");
 						while ($data = $reponse->fetch()){
 					?>
