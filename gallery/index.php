@@ -57,7 +57,10 @@
 					<h2>Image à la une !</h2>
 					<?php
 						$reponse = $bdd->query("SELECT * FROM gallery ORDER BY RAND() LIMIT 7");
-						$data = $reponse->fetch_array();
+						while ($data = $reponse->fetch_array())
+						{
+							$data[]=$data;
+						}
 					?>
 					<img src="<?php echo $data[0]['chemin'];?>" class="img-fluid" alt="Responsive image">
 				</div>
