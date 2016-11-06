@@ -1,9 +1,11 @@
 ﻿#PunkVote
-Application de vote pour la communauté ImperaCube
+Application de vote pour la communauté ImperaCube !
+
 Pour voter go sur : http://www.imperacube.fr/punk/vote/
 
 #PunkGallery
-Application de partage de photo de la communauté par la communauté
+Application de partage de photo de la communauté par la communauté !
+
 Pour visionner : http://www.imperacube.fr/punk/gallery/
 
 #Pourquoi ce projet est Open-Source ?
