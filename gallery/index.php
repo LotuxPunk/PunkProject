@@ -56,10 +56,10 @@
 				<div class="col-md-8">
 					<h2>Image à la une !</h2>
 					<?php
-						$reponse = $bdd->query("SELECT * FROM gallery ORDER BY RAND() LIMIT 7");
-						$data = $reponse->fetch_array();
+						$reponse = $bdd->query("SELECT * FROM gallery ORDER BY RAND() LIMIT 1");
+						$data = $reponse->fetch();
 					?>
-					<img src="<?php echo $data[0]['chemin'];?>" class="img-fluid" alt="Responsive image">
+					<img src="<?php echo $data['chemin'];?>" class="img-fluid" alt="Responsive image">
 				</div>
 				<div class="col-md-4">
 					<h2>Mettre en ligne</h2>
@@ -74,10 +74,10 @@
 			<h2>Plus d'images aléatoire !</h2>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $data[1]['chemin'];?>" class="img-fluid" alt="Responsive image">
+					<img src="img/lotux-automne.jpg" class="img-thumbnail" alt="Responsive image">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[2]['chemin'];?>" class="img-fluid" alt="Responsive image">
+					<img src="img/lotux-automne.jpg" class="img-thumbnail" alt="Responsive image">
 				</div>
 				<div class="col-md-4">
 					<img src="img/lotux-automne.jpg" class="img-thumbnail" alt="Responsive image">
