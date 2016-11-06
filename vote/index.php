@@ -68,6 +68,7 @@
 				<li class="breadcrumb-item"><a href="http://www.imperacube.fr/">Site</a></li>
 				<li class="breadcrumb-item"><a href="http://www.imperacube.fr//forum">Forum</a></li>
 				<li class="breadcrumb-item active">PunkVote</li>
+				<li class="breadcrumb-item"><a href="http://www.imperacube.fr/punk/gallery">PunkGallery</a></li>
 			</ol>
 		</div>
 		<div class="container-fluid">
@@ -82,7 +83,7 @@
 				{
 					foreach ($liste as $joueur){
 					?>
-					<a class="btn btn-secondary" onClick="vote()" href="http://www.imperacube.fr/vote/vote.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
+					<a class="btn btn-secondary" onClick="vote()" href="http://www.imperacube.fr/punk/vote/vote.php?pseudo=<?php echo $joueur; ?>" type="submit"><img src="https://minotar.net/avatar/<?php echo $joueur; ?>/25"> <?php echo $joueur; ?></a>
 					<?php
 					}
 				}
@@ -92,7 +93,7 @@
 				}
 				?>
 				
-			<p style="margin-top:10px;"><a type="button" onClick="vote()" href="http://www.imperacube.fr/vote/vote.php?pseudo=Roger" class="btn btn-primary btn-lg" ><img width="25px" src="img/poulet.jpg"> Roger, va voter !</a></p>
+			<p style="margin-top:10px;"><a type="button" onClick="vote()" href="http://www.imperacube.fr/punk/vote/vote.php?pseudo=Roger" class="btn btn-primary btn-lg" ><img width="25px" src="img/poulet.jpg"> Roger, va voter !</a></p>
 			<p class="text-warning">Des failles existent, si nous constatons des abus, il y aura des sanctions.</p>
 		</div>
 		<div class="container-fluid">
