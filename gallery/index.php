@@ -1,4 +1,22 @@
-﻿<!DOCTYPE html>
+﻿<?php
+	$serveur="localhost";
+	$login = "imperacu_vote";
+	$pass = "ilfautvoter15";
+	
+	try{
+		$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
+	}
+	catch (Exception $e)
+	{
+		die('Erreur : ' . $e->getMessage());
+	}
+?>
+<?php
+	/* $last = $bdd->query('SELECT LAST_INSERT_ID(id) FROM gallery;')->fetch(PDO::FETCH_ROW)[0];
+	echo "<script type='text/javascript'>alert('".$last."');</script>"; */
+?>
+
+<!DOCTYPE html>
 <html lang="fr">
 	<head>
 		<meta charset="utf-8">
@@ -36,12 +54,20 @@
 			</div>
 			<div class="row">
 				<div class="col-md-8">
-					<h2>Blabla</h2>
-					<img src="img/lotux-automne.jpg" class="img-fluid" alt="Responsive image">
+					<h2>Image à la une !</h2>
+					<?php
+						$reponse = $bdd->query("SELECT * FROM gallery ORDER BY RAND() LIMIT 1");
+						$data = $reponse->fetch();
+					?>
+					<img src="<?php echo $data['chemin'];?>" class="img-fluid" alt="Responsive image">
 				</div>
 				<div class="col-md-4">
-					<h2>Rien</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h2>Mettre en ligne</h2>
+					<p>La taille maximale d'une image ne doit pas dépasser 4Mo (4.194.304 octets)</p>
+					<form enctype="multipart/form-data" action="fileupload.php" method="post">
+						<input type="hidden" name="MAX_FILE_SIZE" value="4194304" /><input type="file" name="monfichier" />
+						<input type="submit" />
+					</form>
 				</div>
 			</div>
 			<br/>
