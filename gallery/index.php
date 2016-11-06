@@ -6,22 +6,22 @@
 		<!-- DÉBUT CSS Bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 		<!-- FIN CSS Bootstrap -->
+		<style>
+			#global {
+				max-width:80%;
+				margin:auto;
+				background-color:#F4FAFC;
+				border-radius:25px;
+				padding:20px;
+				margin-top:10px;
+			}
+			
+			body {
+				background-image: url("img/broken_noise.png");
+				background-attachment: fixed;
+			}
+		</style>
 	</head>
-	<style>
-		#global {
-			max-width:80%;
-			margin:auto;
-			background-color:#F4FAFC;
-			border-radius:25px;
-			padding:20px;
-			margin-top:10px;
-		}
-		
-		body {
-			background-image: url("img/broken_noise.png");
-			background-attachment: fixed;
-		}
-	</style>
 	<body>
 		<div id="global">
 			<div class="container-fluid">

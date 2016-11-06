@@ -28,7 +28,7 @@
 		
 		#global {
 			background-color:#F4FAFC;
-			max-width:900px;
+			max-width:80%;
 			margin:auto;
 			text-align:center;
 			padding:20px;
@@ -58,7 +58,6 @@
 	</style>
 
 </head>
-
 <body>
 	<div id="global">
 		<div class="container-fluid">
