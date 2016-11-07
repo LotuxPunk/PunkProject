@@ -57,7 +57,7 @@
 					<h2>Image à la une !</h2>
 					<?php
 						$reponse = $bdd->query("SELECT * FROM gallery ORDER BY RAND() LIMIT 7");
-						$data = $reponse->fetch_array();
+						$data = $reponse->fetchAll();
 					?>
 					<img src="<?php echo $data[0]['chemin'];?>" class="img-fluid" alt="Responsive image">
 				</div>
@@ -74,25 +74,25 @@
 			<h2>Plus d'images aléatoire !</h2>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $data[1]['chemin'];?>" class="img-fluid" alt="Responsive image">
+					<img src="<?php echo $data[1]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[2]['chemin'];?>" class="img-fluid" alt="Responsive image">
+					<img src="<?php echo $data[2]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
 				</div>
 				<div class="col-md-4">
-					<img src="img/lotux-automne.jpg" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[3]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
 				</div>
 			</div>
 			<br/>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="img/lotux-automne.jpg" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[4]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
 				</div>
 				<div class="col-md-4">
-					<img src="img/lotux-automne.jpg" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[5]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
 				</div>
 				<div class="col-md-4">
-					<img src="img/lotux-automne.jpg" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[6]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
 				</div>
 			</div>
 		</div>
