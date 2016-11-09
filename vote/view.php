@@ -3,8 +3,8 @@
 	use xPaw\MinecraftQueryException;
 
 	// Edit this ->
-	define( 'MQ_SERVER_ADDR', 'localhost' );
-	define( 'MQ_SERVER_PORT', 25565 );
+	define( 'MQ_SERVER_ADDR', 'play.imperacube.fr' );
+	define( 'MQ_SERVER_PORT', 23365 );
 	define( 'MQ_TIMEOUT', 1 );
 	// Edit this <-
 
