@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	$serveur="localhost";
 	$login = "imperacu_vote";
 	$pass = "ilfautvoter15";
@@ -57,9 +57,9 @@
 					<h2>Image à la une !</h2>
 					<?php
 						$reponse = $bdd->query("SELECT * FROM gallery ORDER BY RAND() LIMIT 7");
-						$data = $reponse->fetchAll();
+						$data = $reponse->fetch_array();
 					?>
-					<img src="<?php echo $data[0]['chemin'];?>" class="img-fluid" alt="Responsive image">
+					<img src="<?php echo $data[0]['chemin'];?>" class="img-fluid" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
 					<h2>Mettre en ligne</h2>
@@ -74,28 +74,60 @@
 			<h2>Plus d'images aléatoire !</h2>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $data[1]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[1]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[2]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[2]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[3]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[3]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 			</div>
 			<br/>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $data[4]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[4]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[5]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[5]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[6]['chemin'];?>" class="img-thumbnail" alt="Responsive image">
+					<img src="<?php echo $data[6]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 			</div>
 		</div>
+
+		
+<script type="text/javascript">	//modif de l'image du modal
+	function chgtimgmodal(source)	{
+		document.getElementById('imgmodal').src=source;
+	}
+</script>
+	
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Imperaphoto</h4>
+        </div>
+        <div class="modal-body">
+		  <img src="" id="imgmodal" class="img-rounded" alt="Responsive image">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>	
+		
+		
+		
+		
+		
 		
 	<!-- DÉBUT Script Bootstrap -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
