@@ -114,7 +114,7 @@
           <h4 class="modal-title">Imperaphoto</h4>
         </div>
         <div class="modal-body">
-		  <img src="" id="imgmodal" class="img-rounded" alt="Responsive image">
+		  <img src="" id="imgmodal" class="img-fluid" alt="Responsive image">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
