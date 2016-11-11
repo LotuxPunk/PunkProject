@@ -112,7 +112,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Imperaphoto</h4>
+          <h4 class="modal-title">DorinnZoom</h4>
         </div>
         <div class="modal-body">
 		  <img src="" id="imgmodal" class="img-fluid" alt="Responsive image">
