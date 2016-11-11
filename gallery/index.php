@@ -38,6 +38,7 @@
 				background-image: url("img/broken_noise.png");
 				background-attachment: fixed;
 			}
+			
 		</style>
 	</head>
 	<body>
@@ -74,25 +75,25 @@
 			<h2>Plus d'images aléatoire !</h2>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $data[1]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[1]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[2]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[2]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[3]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[3]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 			</div>
 			<br/>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $data[4]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[4]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[5]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[5]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[6]['chemin'];?>" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[6]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
 				</div>
 			</div>
 		</div>
