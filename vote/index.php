@@ -1,4 +1,27 @@
 ﻿<?php
+	
+	/* Début query */
+	require __DIR__ . '/src/MinecraftQuery.php';
+    require __DIR__ . '/src/MinecraftQueryException.php';
+	
+	use xPaw\MinecraftQuery;
+    use xPaw\MinecraftQueryException;
+	
+	$Query = new MinecraftQuery();
+	
+	try
+    {
+		$Query->Connect( 'play.imperacube.fr', 23365 );
+        /* print_r( $Query->GetInfo() ); */
+        $liste = $Query->GetPlayers();
+    }
+    catch( MinecraftQueryException $e )
+    {
+        echo $e->getMessage( );
+	}
+	
+	/* Fin query */
+	
 	$serveur="localhost";
 	$login = "imperacu_vote";
 	$pass = "ilfautvoter15";
@@ -73,9 +96,6 @@
 		<div class="container-fluid">
 			<p class="lead" id="listing">Si vous êtes connecté sur le serveur, cliquez sur le bouton avec votre avatar, sinon cliquez sur Roger ! (Roger le poulet)</p>
 			<?php
-				$json = file_get_contents('https://mcapi.ca/query/play.imperacube.fr:23365/list');
-				$obj = json_decode($json,true);
-				$liste = $obj['Players']['list'];
 				$nbj = count($liste);
 				//echo "<script type='text/javascript'>alert('".$nbj."');</script>";
 				if ($nbj > 0)
