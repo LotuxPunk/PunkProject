@@ -1,5 +1,5 @@
 <?php
-if (!isset($_POST['id']) OR !isset($_POST['next'])) {
+if (!isset($_POST['source']) OR !isset($_POST['sens'])) {
   exit();
 }
 ?>
@@ -11,9 +11,9 @@ if (!isset($_POST['id']) OR !isset($_POST['next'])) {
 ?>
 
 <?php
-	$reponse = $bdd->query("SELECT * FROM gallery WHERE id ".$_GET['next']." ".$_GET['id']." LIMIT 1");
+	$reponse = $bdd->query("SELECT * FROM gallery WHERE id ".$_GET['sens']." (select id from gallery where chemin= ".$_GET['id'].") LIMIT 1");
 	$data = $reponse->fetchAll();
   
   
-  return json_encode($data[0]);
+  return $data[0]['chemin'];
 ?>
