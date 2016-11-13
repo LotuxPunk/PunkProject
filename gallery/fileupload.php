@@ -5,7 +5,7 @@
 <body>
 <?php
 	require "functions.php"
-	connexionDB();
+	$bdd = connexionDB();
 ?>
 <?php
 $nomOrigine = $_FILES['monfichier']['name'];

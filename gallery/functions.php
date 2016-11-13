@@ -7,6 +7,7 @@ function connexionDB(){
 	
 	try{
 		$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
+		return $bdd;
 	}
 	catch (Exception $e)
 	{

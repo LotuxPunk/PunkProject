@@ -1,6 +1,6 @@
 <?php
 	require "functions.php"
-	connexionDB();
+	$bdd = connexionDB();
 ?>
 
 <!DOCTYPE html>
