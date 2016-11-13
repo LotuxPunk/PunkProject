@@ -1,5 +1,6 @@
 <?php
 	require "functions.php"
+	connexionDB();
 ?>
 
 <!DOCTYPE html>

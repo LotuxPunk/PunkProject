@@ -1,4 +1,6 @@
 ﻿<?php
+
+function connexionDB(){
 	$serveur="localhost";
 	$login = "imperacu_vote";
 	$pass = "ilfautvoter15";
@@ -10,4 +12,6 @@
 	{
 		die('Erreur : ' . $e->getMessage());
 	}
+}
+	
 ?>
