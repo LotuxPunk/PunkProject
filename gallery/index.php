@@ -105,6 +105,27 @@
 	}
 </script>
 	
+<script type="text/javascript"> //appel ajax		
+	$(document).ready(function(){
+	    $("#imgmodal").click(function(){
+		$.post(
+		    'newimg.php', // Le fichier cible côté serveur.
+		    {
+			source : document.getElementById('imgmodal').src;
+			sens : ">";	//en attendant de recup le sens
+		    },
+		    'nom_fonction_retour', // Nous renseignons uniquement le nom de la fonction de retour.
+		    'text' // Format des données reçues.
+		);
+
+	    });
+	});
+	
+	function nom_fonction_retour(texte_recu){
+  		document.getElementById('imgmodal').src=texte_recu;
+	}
+</script>		
+		
 <div class="container">
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
