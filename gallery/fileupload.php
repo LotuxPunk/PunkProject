@@ -4,7 +4,7 @@
 </head>
 <body>
 <?php
-	require "functions.php"
+	require "functions.php";
 	$bdd = connexionDB();
 ?>
 <?php
