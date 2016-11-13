@@ -1,19 +1,5 @@
 <?php
-	$serveur="localhost";
-	$login = "imperacu_vote";
-	$pass = "ilfautvoter15";
-	
-	try{
-		$bdd = new PDO("mysql:host=$serveur;dbname=imperacu_vote;charset=utf8",$login,$pass);
-	}
-	catch (Exception $e)
-	{
-		die('Erreur : ' . $e->getMessage());
-	}
-?>
-<?php
-	/* $last = $bdd->query('SELECT LAST_INSERT_ID(id) FROM gallery;')->fetch(PDO::FETCH_ROW)[0];
-	echo "<script type='text/javascript'>alert('".$last."');</script>"; */
+	require "functions.php"
 ?>
 
 <!DOCTYPE html>
