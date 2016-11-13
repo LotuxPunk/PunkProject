@@ -13,5 +13,5 @@ function connexionDB(){
 		die('Erreur : ' . $e->getMessage());
 	}
 }
-	
+
 ?>
