@@ -1,9 +1,21 @@
-<?php
+﻿<?php
 	require "functions.php";
 	$bdd = connexionDB();
 ?>
-
-<!DOCTYPE html>
+<?php
+	/* Détection de la page */
+	if(isset($_GET['p']))
+	{
+		$num = $_GET["p"];
+	}
+	else
+	{
+		$num = 1;
+	}
+	
+	/* Catch des photos dans la DB */
+	$reponse = $bdd->query("SELECT * FROM gallery ORDER BY 'id' ASC LIMIT 20");
+?>
 <html lang="fr">
 	<head>
 		<meta charset="utf-8">
@@ -29,6 +41,7 @@
 		</style>
 	</head>
 	<body>
+		<!--Entête-->
 		<div id="global">
 			<div class="container-fluid">
 				<center><img src="img/logo.png" width="200px"/></center>
@@ -40,52 +53,22 @@
 					<li class="breadcrumb-item active">PunkGallery</li>
 				</ol>
 			</div>
-			<div class="row">
-				<div class="col-md-8">
-					<h2>Image à la une !</h2>
-					<?php
-						$reponse = $bdd->query("SELECT * FROM gallery ORDER BY RAND() LIMIT 7");
-						$data = $reponse->fetchAll();
-					?>
-					<img src="<?php echo $data[0]['chemin'];?>" class="img-fluid" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+			<?php
+				$cpt = 0;
+				$data = $reponse->fetchAll();
+				for ($i = 0; $i == 4; $i++) {
+			?>
+				<div class="row">
+				<?php
+						?>
+						<?php
+						$cpt++;
+					}
+				?>
 				</div>
-				<div class="col-md-4">
-					<h2>Mettre en ligne</h2>
-					<p>La taille maximale d'une image ne doit pas dépasser 4Mo (4.194.304 octets)</p>
-					<form enctype="multipart/form-data" action="fileupload.php" method="post">
-						<input type="hidden" name="MAX_FILE_SIZE" value="4194304" /><input type="file" name="monfichier" />
-						<input type="submit" />
-					</form>
-				</div>
-			</div>
-			<br/>
-			<h2>Plus d'images aléatoire !</h2>
-			<div class="row">
-				<div class="col-md-4">
-					<img src="<?php echo $data[1]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
-				</div>
-				<div class="col-md-4">
-					<img src="<?php echo $data[2]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
-				</div>
-				<div class="col-md-4">
-					<img src="<?php echo $data[3]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
-				</div>
-			</div>
-			<br/>
-			<div class="row">
-				<div class="col-md-4">
-					<img src="<?php echo $data[4]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
-				</div>
-				<div class="col-md-4">
-					<img src="<?php echo $data[5]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
-				</div>
-				<div class="col-md-4">
-					<img src="<?php echo $data[6]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
-				</div>
-			</div>
-		</div>
-
-		
+			<?php
+				}
+			?>		
 <script type="text/javascript">	//modif de l'image du modal
 	function chgtimgmodal(source)	{
 		document.getElementById('imgmodal').src=source;
