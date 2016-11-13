@@ -6,8 +6,8 @@ if (!isset($_POST['source']) OR !isset($_POST['sens'])) {
 
 
 <?php
-	require "functions.php"
-	connexionDB();
+	require "functions.php";
+	$bdd = connexionDB();
 ?>
 
 <?php
