@@ -47,7 +47,7 @@
 						$reponse = $bdd->query("SELECT * FROM gallery ORDER BY RAND() LIMIT 7");
 						$data = $reponse->fetchAll();
 					?>
-					<img src="<?php echo $data[0]['chemin'];?>" class="img-fluid" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[0]['chemin'];?>" name="<?php echo $data[0]['id'];?>" class="img-fluid" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src, this.name);">
 				</div>
 				<div class="col-md-4">
 					<h2>Mettre en ligne</h2>
@@ -62,56 +62,55 @@
 			<h2>Plus d'images aléatoire !</h2>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $data[1]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[1]['chemin'];?>" name="<?php echo $data[1]['id'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src, this.name);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[2]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[2]['chemin'];?>" name="<?php echo $data[2]['id'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src, this.name);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[3]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[3]['chemin'];?>" name="<?php echo $data[3]['id'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src, this.name);">
 				</div>
 			</div>
 			<br/>
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $data[4]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[4]['chemin'];?>" name="<?php echo $data[4]['id'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal"onclick="chgtimgmodal(this.src, this.name);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[5]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[5]['chemin'];?>" name="<?php echo $data[5]['id'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src, this.name);">
 				</div>
 				<div class="col-md-4">
-					<img src="<?php echo $data[6]['chemin'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src);">
+					<img src="<?php echo $data[6]['chemin'];?>" name="<?php echo $data[6]['id'];?>" id="imgGallery" class="img-thumbnail" alt="Responsive image" data-toggle="modal" data-target="#myModal" onclick="chgtimgmodal(this.src, this.name);">
 				</div>
 			</div>
 		</div>
 
 		
 <script type="text/javascript">	//modif de l'image du modal
-	function chgtimgmodal(source)	{
+	function chgtimgmodal(source,id)	{
 		document.getElementById('imgmodal').src=source;
+		document.getElementById('imgmodal').name=id;
 	}
 </script>
-	
 <script type="text/javascript"> //appel ajax		
-	$(document).ready(function(){
-	    $("#imgmodal").click(function(){
-		$.post(
-		    'newimg.php', // Le fichier cible côté serveur.
-		    {
-			source : document.getElementById('imgmodal').src;
-			sens : ">";	//en attendant de recup le sens
-		    },
-		    'nom_fonction_retour', // Nous renseignons uniquement le nom de la fonction de retour.
-		    'text' // Format des données reçues.
-		);
-
-	    });
-	});
-	
-	function nom_fonction_retour(texte_recu){
-  		document.getElementById('imgmodal').src=texte_recu;
+	function newimg(sens){
+			$.ajax({
+				type: "POST",
+				url: 'newimg.php',
+				data: {
+					id: document.getElementById('imgmodal').name
+					,
+					sens: sens
+				},
+				dataType: "json",
+				success: function(data)
+				{
+					//alert (data[0]);
+					chgtimgmodal(data[1],data[0]);
+				},
+			});
 	}
-</script>		
+</script>			
 		
 <div class="container">
   <!-- Modal -->
@@ -123,7 +122,15 @@
           <h4 class="modal-title">DorinnZoom</h4>
         </div>
         <div class="modal-body">
-		  <img src="" id="imgmodal" class="img-fluid" alt="Responsive image">
+		<img src="" id="imgmodal" class="img-fluid" alt="Responsive image">
+		<a class="left carousel-control" href="javascript:newimg('<')" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		 </a>
+		 <a class="right carousel-control" href="javascript:newimg('>')" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		 </a>		
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
