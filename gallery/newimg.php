@@ -1,19 +1,27 @@
 <?php
-if (!isset($_POST['source']) OR !isset($_POST['sens'])) {
+if (!isset($_POST['id']) OR !isset($_POST['sens'])) {
   exit();
 }
 ?>
-
-
 <?php
 	require "functions.php";
 	$bdd = connexionDB();
 ?>
-
 <?php
-	$reponse = $bdd->query("SELECT * FROM gallery WHERE id ".$_GET['sens']." (select id from gallery where chemin= ".$_GET['id'].") LIMIT 1");
+$req="SELECT * FROM gallery WHERE id ".$_POST['sens']." ".$_POST['id']." ORDER BY id LIMIT 1";
+//echo $req;
+	$reponse = $bdd->query($req);
 	$data = $reponse->fetchAll();
   
-  
-  return $data[0]['chemin'];
+	if (!isset($data[0]))	{
+		$req="SELECT * FROM gallery WHERE id = ".$_POST['id']." ORDER BY id LIMIT 1";
+
+		$reponse = $bdd->query($req);
+		$data = $reponse->fetchAll();
+	}
+
+	$maReponse[0]=$data[0]['id'];
+	$maReponse[1] = $data[0]['chemin'];
+
+  echo json_encode($maReponse);
 ?>
