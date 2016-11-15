@@ -8,7 +8,12 @@ if (!isset($_POST['id']) OR !isset($_POST['sens'])) {
 	$bdd = connexionDB();
 ?>
 <?php
-$req="SELECT * FROM gallery WHERE id ".$_POST['sens']." ".$_POST['id']." ORDER BY id LIMIT 1";
+if ($_POST['sens']=="<")
+	$ordre="DESC";
+else
+	$ordre="ASC";
+
+$req="SELECT * FROM gallery WHERE id ".$_POST['sens']." ".$_POST['id']." ".$ordre."ORDER BY id LIMIT 1";
 //echo $req;
 	$reponse = $bdd->query($req);
 	$data = $reponse->fetchAll();
