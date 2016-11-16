@@ -12,10 +12,8 @@
 		$ordre="DESC";
 	else
 		$ordre="ASC";
-
-	$req="SELECT * FROM gallery WHERE id ".$_POST['sens']." ".$_POST['id']." ORDER BY id ".$ordre." LIMIT 1";
-
-//echo $req;
+	
+		$req="SELECT * FROM gallery WHERE id ".$_POST['sens']." ".$_POST['id']." ORDER BY id ".$ordre." LIMIT 1";
 
 	$reponse = $bdd->query($req);
 	$data = $reponse->fetchAll();
@@ -25,7 +23,6 @@
 		$reponse = $bdd->query($req);
 		$data = $reponse->fetchAll();
 	}
-
 
 	$maReponse[0]=$data[0]['id'];
 	$maReponse[1] = $data[0]['chemin'];
